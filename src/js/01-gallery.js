@@ -31,11 +31,14 @@ function handleClick(event) {
     const src = currentProduct.dataset.source;
     const image = galleryItems.find(({ original }) => original === src);
     const instance = basicLightbox.create(`
-    <div>
-    <img class="gallery__image" src="${image.original}" alt="${image.description}"/>
-    </div>
 
-`)
+    <img class="gallery__image" src="${image.original}" alt="${image.description}"/>
+
+
+`, {
+	onShow: (instance) => { document.addEventListener("keydown", handleKey)},
+	onClose: (instance) => { document.removeEventListener("keydown", handleKey)}
+})
     instance.show()
 
     document.addEventListener("keydown", handleKey)
